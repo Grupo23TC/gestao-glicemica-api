@@ -45,13 +45,10 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     @Override
     @Transactional
     public RegistroGlicemico atualizar(Long idRegistroGlicemico, RegistroGlicemico rg) {
-        System.out.println(idRegistroGlicemico);
-        System.out.println(rg);
         Optional<RegistroGlicemico> rgSalvo = rgRepository.findById(idRegistroGlicemico);
         if (rgSalvo.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
-        System.out.println(rgSalvo.get());
         BeanUtils.copyProperties(rg, rgSalvo.get(), "id");
         return rgRepository.save(rgSalvo.get());
     }
