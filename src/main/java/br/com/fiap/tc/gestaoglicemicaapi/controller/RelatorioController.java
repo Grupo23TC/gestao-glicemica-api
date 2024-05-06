@@ -29,24 +29,21 @@ public class RelatorioController {
 //    @Autowired
 //    private RelatorioService service;
 
-    /*
-    @GetMapping("/geraRelatorio/{idUsuario}")
-    public ResponseEntity<List<Relatorio>> gerarRelatorio(@PathVariable Long idUsuario, LocalDate dataIni, LocalDate dataFim) {
-
-        // Recuperação dos registros de índice glicêmico do usuário
-        List<RegistroGlicemico> registros = recuperarRegistrosGlicemia(idUsuario);
-
-        // Cálculo do status da glicemia com base nos registros
-        StatusGlicemicoEnum statusGlicemia = calcularStatusGlicemia(registros);
-
-        // Geração do relatório
-        Relatorio relatorio = gerarRelatorio(registros, statusGlicemia);
-
-        //List<Relatorio> relatorio = relatorioRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(relatorio);
-    }
-
-    */
+//    @GetMapping("/geraRelatorio/{idUsuario}")
+//    public ResponseEntity<List<Relatorio>> gerarRelatorio(@PathVariable Long idUsuario, LocalDate dataIni, LocalDate dataFim) {
+//
+//        // Recuperação dos registros de índice glicêmico do usuário
+//        List<RegistroGlicemico> registros = recuperarRegistrosGlicemia(idUsuario);
+//
+//        // Cálculo do status da glicemia com base nos registros
+//        StatusGlicemicoEnum statusGlicemia = calcularStatusGlicemia(registros);
+//
+//        // Geração do relatório
+//        Relatorio relatorio = gerarRelatorio(registros, statusGlicemia);
+//
+//        //List<Relatorio> relatorio = relatorioRepository.findAll();
+//        return ResponseEntity.status(HttpStatus.OK).body(relatorio);
+//    }
 
     /*
         Status Glicemia
