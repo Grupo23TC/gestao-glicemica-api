@@ -1,5 +1,7 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
+import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
+import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +30,23 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
 
     public List<RegistroGlicemico> registrosDoUsuario(Long usuarioId) {
         List<RegistroGlicemico> registrosGlicemicos = rgRepository.findByUsuarioId(usuarioId);
+
         return registrosGlicemicos;
+    }
+
+    private RegistroGlicemicoDTO toDTO(RegistroGlicemico entity) {
+        return new RegistroGlicemicoDTO(
+                entity.getId(),
+                entity.getTitulo(),
+                entity.getValorGlicemia(),
+                entity.getObservacao(),
+                new UsuarioDTO(
+                        entity.usuario.getId(),
+                        entity.getNome(),
+                        entity.getSexo(),
+                        entity.getIdade(),
+                        entity,getCategoriaDiabete()
+                )
+        );
     }
 }
