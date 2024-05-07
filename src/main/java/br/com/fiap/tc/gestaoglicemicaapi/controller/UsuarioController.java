@@ -34,7 +34,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> criar(@Validated @RequestBody Usuario usuario, HttpServletResponse response) throws Exception {
-        service.validaUsuario(usuario);
+//        service.validaUsuario(usuario);
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);

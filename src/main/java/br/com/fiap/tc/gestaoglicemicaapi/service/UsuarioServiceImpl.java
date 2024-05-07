@@ -1,8 +1,12 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
+import br.com.fiap.tc.gestaoglicemicaapi.exception.UsuarioNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,5 +24,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuarioId.isPresent()) {
             throw new Exception();
         }
+    }
+
+    public Usuario buscarPorId(Long usuarioId) {
+        return usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
     }
 }

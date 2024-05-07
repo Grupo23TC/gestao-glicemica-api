@@ -1,13 +1,13 @@
 package br.com.fiap.tc.gestaoglicemicaapi.controller;
 
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
+import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
+import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
 import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoService;
+import br.com.fiap.tc.gestaoglicemicaapi.service.UsuarioService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,33 +26,43 @@ public class RegistroGlicemicoController {
     @Autowired
     private RegistroGlicemicoService service;
 
-//    @Autowired
-//    private UsuarioService usuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/listaRg")
-    public ResponseEntity<Page<RegistroGlicemico>> listarEventos(
-        @PageableDefault(page = 0, size = 10) Pageable pageable
-    ) {
-        Page<RegistroGlicemico> rg = service.listarEventos(pageable);
+    public ResponseEntity<List<RegistroGlicemico>> listarEventos() {
+        List<RegistroGlicemico> rg = rgRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(rg);
     }
 
     @GetMapping("/{idRegistroGlicemico}")
     public ResponseEntity<Optional<RegistroGlicemico>> buscarPeloId(@PathVariable Long idRegistroGlicemico) {
-        Optional<RegistroGlicemico> rg = service.buscarPeloId(idRegistroGlicemico);
+        Optional<RegistroGlicemico> rg = rgRepository.findById(idRegistroGlicemico);
         return !rg.isEmpty() ? ResponseEntity.ok(rg) : ResponseEntity.noContent().build();
     }
 
-    @PostMapping
-    public ResponseEntity<RegistroGlicemico> criar(@Validated @RequestBody RegistroGlicemico rg) {
-        RegistroGlicemico rgSalvo = service.criar(rg);
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<RegistroGlicemico>> listarRegistrosPorIdUsuario(@PathVariable Long usuarioId) {
+        List<RegistroGlicemico> rg = rgRepository.findByUsuarioId(usuarioId);
+        return !rg.isEmpty() ? ResponseEntity.ok(rg) : ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{usuarioId}")
+    public ResponseEntity<RegistroGlicemico> criar(@Validated @RequestBody RegistroGlicemico rg, @PathVariable Long usuarioId, HttpServletResponse response) {
+        Usuario usuario = usuarioService.buscarPorId(usuarioId);
+        rg.setUsuario(usuario);
+
+        RegistroGlicemico rgSalvo = rgRepository.save(rg);
         return ResponseEntity.status(HttpStatus.CREATED).body(rgSalvo);
     }
 
     @DeleteMapping("/{idRegistroGlicemico}")
-    public ResponseEntity<Void> deletar(@PathVariable Long idRegistroGlicemico) {
-        service.deletar(idRegistroGlicemico);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Long idRegistroGlicemico) {
+        rgRepository.deleteById(idRegistroGlicemico);
     }
 
     @PutMapping("/{idRegistroGlicemico}")
