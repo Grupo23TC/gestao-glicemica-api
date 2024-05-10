@@ -4,7 +4,7 @@ import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
-import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoService;
+import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/v1/rg")
 public class RegistroGlicemicoController {
@@ -25,7 +22,7 @@ public class RegistroGlicemicoController {
     private RegistroGlicemicoRepository rgRepository;
 
     @Autowired
-    private RegistroGlicemicoService service;
+    private RegistroGlicemicoServiceImpl service;
 
     @GetMapping("/listaRg")
     public ResponseEntity<Page<RegistroGlicemico>> listarEventos(
