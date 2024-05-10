@@ -1,6 +1,7 @@
 package br.com.fiap.tc.gestaoglicemicaapi.controller;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
+import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
 import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoService;
@@ -35,14 +36,14 @@ public class RegistroGlicemicoController {
     }
 
     @GetMapping("/{idRegistroGlicemico}")
-    public ResponseEntity<Optional<RegistroGlicemico>> buscarPeloId(@PathVariable Long idRegistroGlicemico) {
-        Optional<RegistroGlicemico> rg = service.buscarPeloId(idRegistroGlicemico);
-        return !rg.isEmpty() ? ResponseEntity.ok(rg) : ResponseEntity.noContent().build();
+    public ResponseEntity<RegistroGlicemicoDTO> buscarPeloId(@PathVariable Long idRegistroGlicemico)  {
+        RegistroGlicemicoDTO rg = service.buscarPeloId(idRegistroGlicemico);
+        return ResponseEntity.ok(rg);
     }
 
     @PostMapping
-    public ResponseEntity<RegistroGlicemico> criar(@Validated @RequestBody RegistroGlicemico rg) {
-        RegistroGlicemico rgSalvo = service.criar(rg);
+    public ResponseEntity<RegistroGlicemicoDTO> criar(@Validated @RequestBody RegistroGlicemicoMinDTO rg) {
+        RegistroGlicemicoDTO rgSalvo = service.criar(rg);
         return ResponseEntity.status(HttpStatus.CREATED).body(rgSalvo);
     }
 
@@ -53,8 +54,8 @@ public class RegistroGlicemicoController {
     }
 
     @PutMapping("/{idRegistroGlicemico}")
-    public ResponseEntity<RegistroGlicemico> atualizar(@PathVariable Long idRegistroGlicemico, @Validated @RequestBody RegistroGlicemico rg) {
-        RegistroGlicemico rgSalvo = service.atualizar(idRegistroGlicemico, rg);
+    public ResponseEntity<RegistroGlicemicoDTO> atualizar(@PathVariable Long idRegistroGlicemico, @Validated @RequestBody RegistroGlicemico rg) {
+        RegistroGlicemicoDTO rgSalvo = service.atualizar(idRegistroGlicemico, rg);
         return ResponseEntity.ok(rgSalvo);
     }
 }

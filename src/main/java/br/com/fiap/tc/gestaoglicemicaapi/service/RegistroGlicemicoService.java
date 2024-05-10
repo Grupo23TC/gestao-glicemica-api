@@ -1,9 +1,12 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
+import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
+import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
+import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,6 +24,9 @@ public class RegistroGlicemicoService  {
     @Autowired
     private RegistroGlicemicoRepository rgRepository;
 
+    @Autowired
+    private UsuarioRepository uRepository;
+
 
     @Transactional(readOnly = true)
     public Page<RegistroGlicemico> listarEventos(Pageable pageable) {
@@ -29,17 +35,21 @@ public class RegistroGlicemicoService  {
 
 
     @Transactional(readOnly = true)
-    public Optional<RegistroGlicemicoDTO> buscarPeloId(Long idRegistroGlicemico) throws Exception {
-        Optional<RegistroGlicemico> rg = rgRepository.findById(idRegistroGlicemico);
-        if (rg.isEmpty()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-        return toDTO(rg.get());
+    public RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico) throws RuntimeException {
+        RegistroGlicemico rg = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RuntimeException("error"));
+        return toDTO(rg);
     }
 
     @Transactional
-    public RegistroGlicemicoDTO criar(RegistroGlicemico registroGlicemico) {
-        return toDTO(rgRepository.save(registroGlicemico));
+    public RegistroGlicemicoDTO criar(RegistroGlicemicoMinDTO registroGlicemico) {
+        Usuario usuario = uRepository.getReferenceById(registroGlicemico.usuarioId());
+        RegistroGlicemico rg = new RegistroGlicemico(
+            registroGlicemico.titulo(),
+            registroGlicemico.valorGlicemia(),
+            registroGlicemico.observacao(),
+            usuario
+            );
+        return toDTO(rgRepository.save(rg));
     }
 
     @Transactional
