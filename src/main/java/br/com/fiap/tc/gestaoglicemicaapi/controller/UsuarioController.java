@@ -2,6 +2,7 @@ package br.com.fiap.tc.gestaoglicemicaapi.controller;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
+import br.com.fiap.tc.gestaoglicemicaapi.service.UsuarioService;
 import br.com.fiap.tc.gestaoglicemicaapi.service.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioServiceImpl usuarioSerivce;
-
-    @Autowired
-    private UsuarioServiceImpl service;
+    private UsuarioService usuarioSerivce;
 
     /* Precisamos de um endpoint que retorna uma lista de usuários?
     @GetMapping("/listaUsuarios")

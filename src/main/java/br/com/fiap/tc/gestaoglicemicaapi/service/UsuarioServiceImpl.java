@@ -16,30 +16,31 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     //TODO ver qual o campo será definido como identificador único
     @Override
-    public void validaUsuario(Usuario usuario) throws RuntimeException {
-        Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new RuntimeException("error"));
+    public void validaUsuario(Usuario usuario) {
+      Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new UsuarioNotFoundException(usuario.getId()));
     }
 
     @Transactional(readOnly = true)
     @Override
     public UsuarioDTO buscarPorId(Long usuarioId) {
-        System.out.println(usuarioId);
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
-        return toDTO(usuario);
+      // TODO implementar o método validarUsuario aqui :D
+      Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
+      return toDTO(usuario);
     }
 
     @Transactional
     @Override
     public UsuarioDTO criar(Usuario usuarioBody) {
-        return toDTO(usuarioRepository.save(usuarioBody));
+      return toDTO(usuarioRepository.save(usuarioBody));
     }
 
     @Transactional
     @Override
     public UsuarioDTO atualizar(Long usuarioId, Usuario usuario) {
-        Usuario usuarioBuscado = usuarioRepository.getReferenceById(usuarioId);
-        usuarioBuscado.setNome(usuario.getNome());
-        return toDTO(usuarioRepository.save(usuarioBuscado));
+      // TODO implementar o método validarUsuario aqui :D
+      Usuario usuarioBuscado = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
+      usuarioBuscado.setNome(usuario.getNome());
+      return toDTO(usuarioRepository.save(usuarioBuscado));
     }
 
     @Transactional
@@ -50,7 +51,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioDTO toDTO(Usuario usuario) {
         return new UsuarioDTO(
-            usuario.getId(),
             usuario.getNome(),
             usuario.getSexo(),
             usuario.getIdade(),

@@ -4,7 +4,7 @@ import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
-import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoServiceImpl;
+import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,16 +19,13 @@ import org.springframework.web.bind.annotation.*;
 public class RegistroGlicemicoController {
 
     @Autowired
-    private RegistroGlicemicoRepository rgRepository;
-
-    @Autowired
-    private RegistroGlicemicoServiceImpl service;
+    private RegistroGlicemicoService service;
 
     @GetMapping("/listaRg")
-    public ResponseEntity<Page<RegistroGlicemico>> listarEventos(
+    public ResponseEntity<Page<RegistroGlicemicoDTO>> listarEventos(
         @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
-        Page<RegistroGlicemico> rg = service.listarEventos(pageable);
+        Page<RegistroGlicemicoDTO> rg = service.listarRegistros(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(rg);
     }
 
@@ -51,7 +48,7 @@ public class RegistroGlicemicoController {
     }
 
     @PutMapping("/{idRegistroGlicemico}")
-    public ResponseEntity<RegistroGlicemicoDTO> atualizar(@PathVariable Long idRegistroGlicemico, @Validated @RequestBody RegistroGlicemico rg) {
+    public ResponseEntity<RegistroGlicemicoDTO> atualizar(@PathVariable Long idRegistroGlicemico, @RequestBody RegistroGlicemicoMinDTO rg) {
         RegistroGlicemicoDTO rgSalvo = service.atualizar(idRegistroGlicemico, rg);
         return ResponseEntity.ok(rgSalvo);
     }

@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface RegistroGlicemicoService {
-  Page<RegistroGlicemico> listarEventos(Pageable pageable);
+  Page<RegistroGlicemicoDTO> listarRegistros(Pageable pageable);
 
   RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico) throws RuntimeException;
 
@@ -20,5 +20,5 @@ public interface RegistroGlicemicoService {
 
   void deletar(Long idRegistroGlicemico);
 
-  RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemico rg);
+  RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemicoMinDTO rg);
 }

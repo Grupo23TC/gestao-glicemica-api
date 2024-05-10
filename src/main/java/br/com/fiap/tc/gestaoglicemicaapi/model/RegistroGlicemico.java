@@ -10,27 +10,26 @@ import lombok.*;
 @ToString
 @Entity
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class RegistroGlicemico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String titulo;
 
+    @NonNull
     private double valorGlicemia;
 
+    @NonNull
     private String observacao;
 
+    @NonNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @JoinColumn(name = "usuario_id")
     private Usuario usuario; // Chave estrangeira
 
-    public RegistroGlicemico(String titulo, double valorGlicemia, String observacao, Usuario usuario) {
-        this.titulo = titulo;
-        this.valorGlicemia = valorGlicemia;
-        this.observacao = observacao;
-        this.usuario = usuario;
-    }
 }
