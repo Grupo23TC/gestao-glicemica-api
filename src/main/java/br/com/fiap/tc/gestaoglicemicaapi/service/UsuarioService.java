@@ -4,6 +4,8 @@ import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.exception.UsuarioNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 
+import java.util.List;
+
 public interface UsuarioService {
   void validaUsuario(Usuario usuario) throws RuntimeException;
 
@@ -14,4 +16,6 @@ public interface UsuarioService {
   UsuarioDTO atualizar(Long usuarioId, Usuario usuario);
 
   void deletar(Long usuarioId);
+
+  List<UsuarioDTO> listaUsuario();
 }
