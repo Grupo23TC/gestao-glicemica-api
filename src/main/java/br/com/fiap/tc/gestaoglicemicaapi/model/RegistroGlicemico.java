@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -22,6 +24,9 @@ public class RegistroGlicemico {
 
     @NonNull
     private double valorGlicemia;
+
+    @NonNull
+    private LocalDateTime data;
 
     @NonNull
     private String observacao;

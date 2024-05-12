@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,6 +51,7 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
         RegistroGlicemico rg = new RegistroGlicemico(
             rgDTO.titulo(),
             rgDTO.valorGlicemia(),
+            rgDTO.data(),
             rgDTO.observacao(),
             usuario
             );
@@ -72,11 +75,24 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
         return toDTO(rgRepository.save(rgSalvo.get()));
     }
 
+    @Transactional(readOnly = true)
+    public List<RegistroGlicemico> registrosDoUsuario(Long usuarioId, LocalDateTime dataIni, LocalDateTime dataFim) {
+        List<RegistroGlicemico> registrosGlicemicos = rgRepository.findByUsuarioIdAndDataBetween(usuarioId, dataIni, dataFim);
+        return registrosGlicemicos;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<RegistroGlicemico> registroUsuario(Long usuarioId, Pageable pageable) {
+      return rgRepository.findByUsuarioId(usuarioId, pageable);
+    }
+
     private RegistroGlicemicoDTO toDTO(RegistroGlicemico entity) {
         return new RegistroGlicemicoDTO(
             entity.getId(),
             entity.getTitulo(),
             entity.getValorGlicemia(),
+            entity.getData(),
             entity.getObservacao(),
             new UsuarioDTO(
                 entity.getUsuario().getNome(),

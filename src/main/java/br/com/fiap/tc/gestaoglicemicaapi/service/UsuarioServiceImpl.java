@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -19,6 +21,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void validaUsuario(Usuario usuario) {
       Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new UsuarioNotFoundException(usuario.getId()));
     }
+
+  @Transactional(readOnly = true)
+  public List<UsuarioDTO> listaUsuario() {
+    List<Usuario> usuarios = usuarioRepository.findAll();
+    return usuarios.stream().map(this::toDTO).toList();
+  }
 
     @Transactional(readOnly = true)
     @Override

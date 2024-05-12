@@ -9,16 +9,22 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface RegistroGlicemicoService {
   Page<RegistroGlicemicoDTO> listarRegistros(Pageable pageable);
 
-  RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico) throws RuntimeException;
+  RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico);
 
   RegistroGlicemicoDTO criar(RegistroGlicemicoMinDTO registroGlicemico);
 
   void deletar(Long idRegistroGlicemico);
 
   RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemicoMinDTO rg);
+
+  List<RegistroGlicemico> registrosDoUsuario(Long usuarioId, LocalDateTime dataIni, LocalDateTime dataFim);
+
+  Page<RegistroGlicemico> registroUsuario(Long usuarioId, Pageable pageable);
 }

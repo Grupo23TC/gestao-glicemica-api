@@ -1,13 +1,29 @@
 package br.com.fiap.tc.gestaoglicemicaapi.model;
 
-import jakarta.persistence.*;
+import br.com.fiap.tc.gestaoglicemicaapi.enums.StatusGlicemicoEnum;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Getter
+@Setter
+@ToString
 public class Relatorio {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    private StatusGlicemicoEnum statusGlicemia;
+
+    private LocalDate dataIni;
+
+    private LocalDate dataFim;
+
+    private double menorValorGlicemia;
+
+    private double maiorValorGlicemia;
+
+    private double mediaValorGlicemia;
+
+    private List<RegistroGlicemico> listaDeRegistros;
 }

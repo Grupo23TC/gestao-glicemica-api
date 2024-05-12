@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/usuario")
 public class UsuarioController {
@@ -17,13 +19,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioSerivce;
 
-    /* Precisamos de um endpoint que retorna uma lista de usuários?
     @GetMapping("/listaUsuarios")
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
-        List<Usuario> usuario = usuarioRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioSerivce.listaUsuario();
+        return ResponseEntity.ok(usuarios);
     }
-     */
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> findUsuarioById(@PathVariable Long id) {
