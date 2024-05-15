@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/v1/relatorio")
@@ -18,7 +17,7 @@ public class RelatorioController {
   private RelatorioService service;
 
   @GetMapping("/geraRelatorio/{idUsuario}")
-  public ResponseEntity<Relatorio> gerarRelatorio(@PathVariable Long idUsuario, @RequestParam LocalDateTime dataIni, @RequestParam LocalDateTime dataFim) {
+  public ResponseEntity<Relatorio> gerarRelatorio(@PathVariable Long idUsuario, @RequestParam LocalDate dataIni, @RequestParam LocalDate dataFim) {
 
     Relatorio relatorio = service.montaRelatorio(idUsuario, dataIni, dataFim);
 

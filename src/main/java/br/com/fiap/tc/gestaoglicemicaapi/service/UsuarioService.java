@@ -1,7 +1,6 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
-import br.com.fiap.tc.gestaoglicemicaapi.exception.UsuarioNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 
 import java.util.List;

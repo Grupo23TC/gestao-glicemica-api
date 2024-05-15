@@ -3,9 +3,7 @@ package br.com.fiap.tc.gestaoglicemicaapi.controller;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
-import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
 import br.com.fiap.tc.gestaoglicemicaapi.service.RegistroGlicemicoService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +21,7 @@ public class RegistroGlicemicoController {
     private RegistroGlicemicoService service;
 
     @GetMapping("/listaRg")
-    public ResponseEntity<Page<RegistroGlicemicoDTO>> listarEventos(
+    public ResponseEntity<Page<RegistroGlicemicoDTO>> listarRegistrosGlicemicos(
         @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
         Page<RegistroGlicemicoDTO> rg = service.listarRegistros(pageable);
@@ -36,8 +34,8 @@ public class RegistroGlicemicoController {
         return ResponseEntity.ok(rg);
     }
 
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<Page<RegistroGlicemico>> registrosUsuario(@PathVariable Long idUsuario, Pageable pageable) {
+    @GetMapping("/listaRg/{idUsuario}")
+    public ResponseEntity<Page<RegistroGlicemico>> listarRegistrosUsuario(@PathVariable Long idUsuario, Pageable pageable) {
         return ResponseEntity.ok(service.registroUsuario(idUsuario, pageable));
     }
 

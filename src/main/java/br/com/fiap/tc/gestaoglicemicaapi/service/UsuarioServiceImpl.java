@@ -1,7 +1,7 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
-import br.com.fiap.tc.gestaoglicemicaapi.exception.UsuarioNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.UsuarioNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ public class UsuarioServiceImpl implements UsuarioService {
       Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new UsuarioNotFoundException(usuario.getId()));
     }
 
-  @Transactional(readOnly = true)
-  public List<UsuarioDTO> listaUsuario() {
-    List<Usuario> usuarios = usuarioRepository.findAll();
-    return usuarios.stream().map(this::toDTO).toList();
-  }
+    @Transactional(readOnly = true)
+    public List<UsuarioDTO> listaUsuario() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream().map(this::toDTO).toList();
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -48,6 +48,9 @@ public class UsuarioServiceImpl implements UsuarioService {
       // TODO implementar o método validarUsuario aqui :D
       Usuario usuarioBuscado = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
       usuarioBuscado.setNome(usuario.getNome());
+      usuarioBuscado.setSexo(usuario.getSexo());
+      usuarioBuscado.setIdade(usuario.getIdade());
+      usuarioBuscado.setCategoriaDiabete(usuario.getCategoriaDiabete());
       return toDTO(usuarioRepository.save(usuarioBuscado));
     }
 

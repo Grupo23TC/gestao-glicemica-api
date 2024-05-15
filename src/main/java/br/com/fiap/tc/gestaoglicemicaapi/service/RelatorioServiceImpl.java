@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,7 +16,7 @@ public class RelatorioServiceImpl implements RelatorioService{
   private RegistroGlicemicoService rgService;
 
 
-  public Relatorio montaRelatorio(Long usuarioId, LocalDateTime dataIni, LocalDateTime dataFim) {
+  public Relatorio montaRelatorio(Long usuarioId, LocalDate dataIni, LocalDate dataFim) {
     List<RegistroGlicemico> registros = rgService.registrosDoUsuario(usuarioId, dataIni, dataFim);
 
     double valorMedio = mediaRegistrosGlicemicos(registros);
@@ -27,8 +26,8 @@ public class RelatorioServiceImpl implements RelatorioService{
     //TODO ver como atrelar o StatusGlicemico ao valorMédio
     relatorio.setMediaValorGlicemia(valorMedio);
     relatorio.setStatusGlicemia(RegraStatusGlicemico.calculaResultadoGlicemia(valorMedio));
-    relatorio.setDataIni(LocalDate.from(dataIni));
-    relatorio.setDataFim(LocalDate.from(dataFim));
+    relatorio.setDataIni(dataIni);
+    relatorio.setDataFim(dataFim);
     relatorio.setListaDeRegistros(registros);
 
     return relatorio;

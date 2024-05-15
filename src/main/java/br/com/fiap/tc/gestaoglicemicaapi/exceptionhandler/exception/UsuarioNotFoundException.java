@@ -1,4 +1,4 @@
-package br.com.fiap.tc.gestaoglicemicaapi.exception;
+package br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception;
 
 public class UsuarioNotFoundException extends RuntimeException {
 
