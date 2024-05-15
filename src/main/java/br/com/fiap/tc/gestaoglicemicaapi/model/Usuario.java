@@ -2,10 +2,11 @@ package br.com.fiap.tc.gestaoglicemicaapi.model;
 
 import br.com.fiap.tc.gestaoglicemicaapi.enums.CategoriaDiabeteEnum;
 import br.com.fiap.tc.gestaoglicemicaapi.enums.SexoEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter

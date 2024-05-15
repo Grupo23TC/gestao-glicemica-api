@@ -5,7 +5,7 @@ import br.com.fiap.tc.gestaoglicemicaapi.enums.StatusGlicemicoEnum;
 public class RegraStatusGlicemico {
 
     //TODO pode ser feito usando switch case
-    public StatusGlicemicoEnum calculaResultadoGlicemia(double valorGlicemia) {
+    public static StatusGlicemicoEnum calculaResultadoGlicemia(double valorGlicemia) {
 
         if (valorGlicemia < 70.0) {
             return StatusGlicemicoEnum.HIPOGLICEMIA;
