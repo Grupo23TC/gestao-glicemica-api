@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RelatorioServiceImpl implements RelatorioService{
@@ -26,6 +27,8 @@ public class RelatorioServiceImpl implements RelatorioService{
     //TODO ver como atrelar o StatusGlicemico ao valorMédio
     relatorio.setMediaValorGlicemia(valorMedio);
     relatorio.setStatusGlicemia(RegraStatusGlicemico.calculaResultadoGlicemia(valorMedio));
+    relatorio.setMaiorValorGlicemia(maiorValorGlicemico(registros));
+    relatorio.setMenorValorGlicemia(menorValorGlicemico(registros));
     relatorio.setDataIni(dataIni);
     relatorio.setDataFim(dataFim);
     relatorio.setListaDeRegistros(registros);
@@ -33,20 +36,24 @@ public class RelatorioServiceImpl implements RelatorioService{
     return relatorio;
   }
 
-  private double mediaRegistrosGlicemicos(List<RegistroGlicemico> registros){
-    List<RegistroGlicemico> listaDeRegistros = registros;
+  private double maiorValorGlicemico(List<RegistroGlicemico> registroGlicemicos) {
+    return registroGlicemicos.stream()
+            .mapToDouble(RegistroGlicemico::getValorGlicemia)
+            .max()
+            .orElseThrow(NoSuchElementException::new);
+  }
 
-    double totalValorGlicemia = 0.0;
-    int countRegistros = 0;
+  private double menorValorGlicemico(List<RegistroGlicemico> registroGlicemicos) {
+    return registroGlicemicos.stream()
+            .mapToDouble(RegistroGlicemico::getValorGlicemia)
+            .min()
+            .orElseThrow(NoSuchElementException::new);
+  }
 
-    for (RegistroGlicemico registroGlicemico : listaDeRegistros) {
-      double valorGlicemia = registroGlicemico.getValorGlicemia();
-
-      totalValorGlicemia += valorGlicemia;
-      countRegistros++;
-    }
-
-    double mediaValorGlicemia = totalValorGlicemia / countRegistros;
-    return mediaValorGlicemia;
+  private double mediaRegistrosGlicemicos(List<RegistroGlicemico> registroGlicemicos){
+    return registroGlicemicos.stream()
+            .mapToDouble(RegistroGlicemico::getValorGlicemia)
+            .average()
+            .orElseThrow(NoSuchElementException::new);
   }
 }
