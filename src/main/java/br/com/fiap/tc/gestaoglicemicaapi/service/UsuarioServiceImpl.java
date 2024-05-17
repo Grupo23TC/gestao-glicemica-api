@@ -63,7 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     @Override
     public void deletar(Long usuarioId) {
-        Page<RegistroGlicemico> rgPage = rgService.registrosDoUsuario(usuarioId, Pageable.ofSize(10));
+        Page<RegistroGlicemico> rgPage = rgService.registrosDoUsuario(usuarioId, Pageable.unpaged());
         if (rgPage.hasContent()) {
             rgPage.get().forEach(rg -> {
                 rgService.deletar(rg.getId());
