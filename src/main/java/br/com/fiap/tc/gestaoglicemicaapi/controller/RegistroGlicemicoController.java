@@ -36,7 +36,7 @@ public class RegistroGlicemicoController {
 
     @GetMapping("/listaRg/{idUsuario}")
     public ResponseEntity<Page<RegistroGlicemico>> listarRegistrosUsuario(@PathVariable Long idUsuario, Pageable pageable) {
-        return ResponseEntity.ok(service.registroUsuario(idUsuario, pageable));
+        return ResponseEntity.ok(service.registrosDoUsuario(idUsuario, pageable));
     }
 
     @PostMapping

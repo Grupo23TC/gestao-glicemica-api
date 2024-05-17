@@ -2,9 +2,12 @@ package br.com.fiap.tc.gestaoglicemicaapi.service;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.UsuarioNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private RegistroGlicemicoService rgService;
 
     //TODO ver qual o campo será definido como identificador único
     @Override
@@ -57,6 +63,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     @Override
     public void deletar(Long usuarioId) {
+        Page<RegistroGlicemico> rgPage = rgService.registrosDoUsuario(usuarioId, Pageable.ofSize(10));
+        if (rgPage.hasContent()) {
+            rgPage.get().forEach(rg -> {
+                rgService.deletar(rg.getId());
+            });
+        }
         usuarioRepository.deleteById(usuarioId);
     }
 
