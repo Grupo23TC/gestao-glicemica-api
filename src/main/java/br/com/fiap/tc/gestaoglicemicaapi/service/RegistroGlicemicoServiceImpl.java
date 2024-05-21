@@ -4,6 +4,7 @@ import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.RegistroGlicemicoNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.UsuarioNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
@@ -37,14 +38,15 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     @Transactional(readOnly = true)
     @Override
     public RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico) {
-        RegistroGlicemico rg = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException("Registro Glicemico não encontrado"));
+        RegistroGlicemico rg = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException(idRegistroGlicemico));
         return toDTO(rg);
     }
 
     @Transactional
     @Override
     public RegistroGlicemicoDTO criar(RegistroGlicemicoMinDTO rgDTO) {
-        Usuario usuario = uRepository.getReferenceById(rgDTO.usuarioId());
+        Usuario usuario  = uRepository.findById(rgDTO.usuarioId()).orElseThrow(() -> new UsuarioNotFoundException(rgDTO.usuarioId()));;
+
         RegistroGlicemico rg = new RegistroGlicemico(
             rgDTO.valorGlicemia(),
             rgDTO.observacao(),
@@ -62,7 +64,7 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     @Transactional
     @Override
     public RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemicoMinDTO rg) {
-        RegistroGlicemico rgSalvo = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException("Registro Glicemico não encontrado."));
+        RegistroGlicemico rgSalvo = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException(idRegistroGlicemico));
 
         rgSalvo.setData(rg.data());
         rgSalvo.setTitulo(rg.titulo());
@@ -73,14 +75,14 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     }
 
     @Transactional(readOnly = true)
-    public List<RegistroGlicemico> registrosDoUsuario(Long usuarioId, LocalDate dataIni, LocalDate dataFim) {
+    public List<RegistroGlicemico> registrosDoUsuarioPorData(Long usuarioId, LocalDate dataIni, LocalDate dataFim) {
         List<RegistroGlicemico> registrosGlicemicos = rgRepository.findByUsuarioIdAndDataBetween(usuarioId, dataIni, dataFim);
         return registrosGlicemicos;
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Page<RegistroGlicemico> registroUsuario(Long usuarioId, Pageable pageable) {
+    public Page<RegistroGlicemico> registrosDoUsuario(Long usuarioId, Pageable pageable) {
       return rgRepository.findByUsuarioId(usuarioId, pageable);
     }
 

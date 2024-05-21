@@ -18,20 +18,24 @@ public class RelatorioServiceImpl implements RelatorioService{
 
 
   public Relatorio montaRelatorio(Long usuarioId, LocalDate dataIni, LocalDate dataFim) {
-    List<RegistroGlicemico> registros = rgService.registrosDoUsuario(usuarioId, dataIni, dataFim);
-
-    double valorMedio = mediaRegistrosGlicemicos(registros);
+    List<RegistroGlicemico> registros = rgService.registrosDoUsuarioPorData(usuarioId, dataIni, dataFim);
 
     Relatorio relatorio = new Relatorio();
+    relatorio.setDataIni(dataIni);
+    relatorio.setDataFim(dataFim);
+    relatorio.setListaDeRegistros(registros);
+
+    if (registros.isEmpty()) {
+      return relatorio;
+    }
+
+    double valorMedio = mediaRegistrosGlicemicos(registros);
 
     //TODO ver como atrelar o StatusGlicemico ao valorMédio
     relatorio.setMediaValorGlicemia(valorMedio);
     relatorio.setStatusGlicemia(RegraStatusGlicemico.calculaResultadoGlicemia(valorMedio));
     relatorio.setMaiorValorGlicemia(maiorValorGlicemico(registros));
     relatorio.setMenorValorGlicemia(menorValorGlicemico(registros));
-    relatorio.setDataIni(dataIni);
-    relatorio.setDataFim(dataFim);
-    relatorio.setListaDeRegistros(registros);
 
     return relatorio;
   }

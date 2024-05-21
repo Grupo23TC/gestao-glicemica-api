@@ -20,7 +20,7 @@ public interface RegistroGlicemicoService {
 
   RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemicoMinDTO rg);
 
-  List<RegistroGlicemico> registrosDoUsuario(Long usuarioId, LocalDate dataIni, LocalDate dataFim);
+  List<RegistroGlicemico> registrosDoUsuarioPorData(Long usuarioId, LocalDate dataIni, LocalDate dataFim);
 
-  Page<RegistroGlicemico> registroUsuario(Long usuarioId, Pageable pageable);
+  Page<RegistroGlicemico> registrosDoUsuario(Long usuarioId, Pageable pageable);
 }
