@@ -55,6 +55,8 @@ O sistema permitirá o monitoramento diário dos níveis de glicose no sangue (g
 
 Você pode [acessar o código fonte do projeto](https://github.com/Grupo23TC/gestao-glicemica-api).
 
+Você pode baixar a [collection do postman](https://1drv.ms/u/c/37d44d6364f7bf8c/ES3_468DyuJEkVrgQVEII_gB2BYIA-IZW92LcBGR21GrbQ?e=5fggbk) para realizar os testes dos endpoints.
+
 ## Abrir e rodar o projeto
 
 Após baixar o projeto, você pode abrir com o `Intellij ou IDE de preferencia para projetos Java`.
