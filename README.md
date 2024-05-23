@@ -74,4 +74,3 @@ Davi da Silva Alves - RM354885
 Kelvyn Amaral Candido - RM355306
 Lucas Franco Barbosa Navarro - RM353767
 Lucas Teixeira - RM353880
-
