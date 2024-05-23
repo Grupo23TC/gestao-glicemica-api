@@ -21,7 +21,7 @@
 ## Descrição do projeto
 
 <p align="justify">
- Projeto em desenvolvimento para tech challenger do curso de Arquitetura e Desenvolvimento Java. A Minha Glicemia é um sistema de monitoramento glicemico para pessoas acometidas por diabetes mellitus.
+ Projeto em desenvolvimento para tech challenger do curso de Arquitetura e Desenvolvimento Java. A Minha Glicemia é um sistema de monitoramento glicêmico para pessoas acometidas por diabetes mellitus.
 
 O sistema permitirá o monitoramento diário dos níveis de glicose no sangue (glicemia), possibilitando que o usuário possa mapear sua glicemia e ter um melhor controle de sua diabetes.
 
@@ -30,20 +30,24 @@ O sistema permitirá o monitoramento diário dos níveis de glicose no sangue (g
 
 `Funcionalidade 1:` Realizar cadastro dos usuários.
 
-`Funcionalidade 2:` Armazenar o registro glicemico do usuário no banco de dados.
+`Funcionalidade 2:` Armazenar o registro glicêmico do usuário no banco de dados.
 
-`Funcionalidade 3:` Plotar gráfico com histórico dos níveis glicêmicos do usuario.
+`Funcionalidade 3:` Realizar edição e remoção de registros glicêmicos e dados de usuário.
 
-`Funcionalidade 4:` Disponibilizar relatorio mensal do controle glicemico em pdf.
+`Funcionalidade 4:` Disponibilizar relatório do controle glicêmico por período específicado pelo usuário.
 
 
 ###
 
 ## Ferramentas utilizadas
 
-<a href="https://www.java.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> 
+<a href="https://www.java.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" width="40" height="40"/> </a> 
 
 <a href="https://spring.io/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg" alt="Spring" width="40" height="40"/> </a>
+
+<a href="https://www.mysql.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" width="40" /> </a>
+
+<a href="https://www.postman.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman" width="40" /> </a>
 
 ###
 
@@ -53,12 +57,19 @@ Você pode [acessar o código fonte do projeto](https://github.com/Grupo23TC/ges
 
 ## Abrir e rodar o projeto
 
-Após baixar o projeto, você pode abrir com o `Intellij ou IDE de preferencia para projetos Java`. Para isso, na tela de launcher clique em:
+Após baixar o projeto, você pode abrir com o `Intellij ou IDE de preferencia para projetos Java`.
 
-- `Open File or Project` (ou alguma opção similar);
-- Procure o local onde o projeto está e o selecione;
-- Por fim clique em `OK`.
+Instalar o MySQL na versão 8.0.28 e criar um database com nome: `gestao-glicemica`
 
-O `Intellij` deve executar algumas tasks do *Maven* para configurar o projeto, aguarde até finalizar. Ao finalizar as tasks, você pode executar o App 🏆
+É necessário fazer as configurações de conexão com o banco de dados no application properties com as variáveis `spring.datasource.username` e `spring.datasource.password` .
+
+Para executar o projeto localmente deve estar usando a versão do JDK 17 ou superior e possuir o Maven em uma versão compatível configurado na sua máquina. Por se tratar de uma aplicação Spring boot o próprio Spring se encarregará de buildar e startar a aplicação em um servidor local Tomcat na porta 8080.
 
 ## Desenvolvedores
+
+Caio Tárraga Fernandes - RM353583
+Davi da Silva Alves - RM354885
+Kelvyn Amaral Candido - RM355306
+Lucas Franco Barbosa Navarro - RM353767
+Lucas Teixeira - RM353880
+
