@@ -1,5 +1,6 @@
 package br.com.fiap.tc.gestaoglicemicaapi.controller;
 
+import br.com.fiap.tc.gestaoglicemicaapi.dto.RelatorioDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Relatorio;
 import br.com.fiap.tc.gestaoglicemicaapi.service.RelatorioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class RelatorioController {
   private RelatorioService service;
 
   @GetMapping("/geraRelatorio/{idUsuario}")
-  public ResponseEntity<Relatorio> gerarRelatorio(@PathVariable Long idUsuario, @RequestParam LocalDate dataIni, @RequestParam LocalDate dataFim) {
+  public ResponseEntity<RelatorioDTO> gerarRelatorio(@PathVariable Long idUsuario, @RequestParam LocalDate dataIni, @RequestParam LocalDate dataFim) {
 
-    Relatorio relatorio = service.montaRelatorio(idUsuario, dataIni, dataFim);
+    RelatorioDTO relatorio = service.montaRelatorio(idUsuario, dataIni, dataFim);
 
     return ResponseEntity.status(HttpStatus.OK).body(relatorio);
   }
