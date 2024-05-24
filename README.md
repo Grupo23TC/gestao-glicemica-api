@@ -69,8 +69,6 @@ Para executar o projeto localmente deve estar usando a versão do JDK 17 ou supe
 
 ## Desenvolvedores
 
-Caio Tárraga Fernandes - RM353583
-Davi da Silva Alves - RM354885
-Kelvyn Amaral Candido - RM355306
-Lucas Franco Barbosa Navarro - RM353767
-Lucas Teixeira - RM353880
+| [<img src="https://avatars.githubusercontent.com/caiotfernandes" width=115><br><sub>Caio Fernandes - RM353583</sub>](https://github.com/caiotfernandes) | [<img src="https://avatars.githubusercontent.com/davialvs" width=115><br><sub>Davi Alves- RM354885</sub>](https://github.com/davialvs) |  [<img src="https://avatars.githubusercontent.com/kelvynamaral" width=115><br><sub>Kelvyn Amaral - RM355306 </sub>](https://github.com/KelvynAmaral) | [<img src="https://avatars.githubusercontent.com/LucasFrancoBN" width=115><br><sub>Lucas Franco - RM353767 </sub>](https://github.com/LucasFrancoBN) |   | [<img src="https://avatars.githubusercontent.com/lucasctteixeira" width=115><br><sub>Lucas Teixeira - RM353880 </sub>](https://github.com/lucasctteixeira) |   
+|:---------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------:
+
