@@ -52,7 +52,7 @@ public class RegistroGlicemicoController {
     }
 
     @PutMapping("/{idRegistroGlicemico}")
-    public ResponseEntity<RegistroGlicemicoDTO> atualizar(@PathVariable Long idRegistroGlicemico, @RequestBody RegistroGlicemicoMinDTO rg) {
+    public ResponseEntity<RegistroGlicemicoDTO> atualizar(@PathVariable Long idRegistroGlicemico, @Validated @RequestBody RegistroGlicemicoMinDTO rg) {
         RegistroGlicemicoDTO rgSalvo = service.atualizar(idRegistroGlicemico, rg);
         return ResponseEntity.ok(rgSalvo);
     }

@@ -10,9 +10,9 @@ public interface UsuarioService {
 
   UsuarioDTO buscarPorId(Long usuarioId);
 
-  UsuarioDTO criar(Usuario usuarioBody);
+  UsuarioDTO criar(UsuarioDTO usuarioBody);
 
-  UsuarioDTO atualizar(Long usuarioId, Usuario usuario);
+  UsuarioDTO atualizar(Long usuarioId, UsuarioDTO usuario);
 
   void deletar(Long usuarioId);
 

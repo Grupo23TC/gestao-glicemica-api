@@ -1,7 +1,6 @@
 package br.com.fiap.tc.gestaoglicemicaapi.controller;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
-import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,14 +30,14 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> criar(@Validated @RequestBody Usuario usuario) throws Exception {
+    public ResponseEntity<UsuarioDTO> criar(@Validated @RequestBody UsuarioDTO usuario) throws Exception {
         // service.validaUsuario(usuario);
         UsuarioDTO usuarioSalvo = usuarioService.criar(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody Usuario usuario, @PathVariable Long id) {
+    public ResponseEntity<UsuarioDTO> atualizar(@Validated @RequestBody UsuarioDTO usuario, @PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.atualizar(id, usuario));
     }
 

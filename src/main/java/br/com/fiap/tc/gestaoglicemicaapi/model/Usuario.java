@@ -14,18 +14,23 @@ import lombok.*;
 @ToString
 @Entity
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String nome;
 
+    @NonNull
     private SexoEnum sexo;
 
+    @NonNull
     private int idade;
 
+    @NonNull
     private CategoriaDiabeteEnum categoriaDiabete;
 
 //    @OneToMany(mappedBy = "usuario")
