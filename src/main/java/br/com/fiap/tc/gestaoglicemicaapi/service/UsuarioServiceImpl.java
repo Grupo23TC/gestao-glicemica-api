@@ -1,7 +1,7 @@
 package br.com.fiap.tc.gestaoglicemicaapi.service;
 
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
-import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.UsuarioNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.RecursoNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.UsuarioRepository;
@@ -22,10 +22,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private RegistroGlicemicoService rgService;
 
-    //TODO ver qual o campo será definido como identificador único
     @Override
     public void validaUsuario(Usuario usuario) {
-      Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new UsuarioNotFoundException(usuario.getId()));
+      Usuario usuarioId = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new RecursoNotFoundException("Usuário não encontrado com ID: " + usuario.getId()));
     }
 
     @Transactional(readOnly = true)
@@ -37,26 +36,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     @Override
     public UsuarioDTO buscarPorId(Long usuarioId) {
-      // TODO implementar o método validarUsuario aqui :D
-      Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
+      Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RecursoNotFoundException("Usuário não encontrado com ID: " + usuarioId));
       return toDTO(usuario);
     }
 
     @Transactional
     @Override
-    public UsuarioDTO criar(Usuario usuarioBody) {
-      return toDTO(usuarioRepository.save(usuarioBody));
+    public UsuarioDTO criar(UsuarioDTO usuarioBody) {
+      return toDTO(usuarioRepository.save(toEntity(usuarioBody)));
     }
 
     @Transactional
     @Override
-    public UsuarioDTO atualizar(Long usuarioId, Usuario usuario) {
-      // TODO implementar o método validarUsuario aqui :D
-      Usuario usuarioBuscado = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
-      usuarioBuscado.setNome(usuario.getNome());
-      usuarioBuscado.setSexo(usuario.getSexo());
-      usuarioBuscado.setIdade(usuario.getIdade());
-      usuarioBuscado.setCategoriaDiabete(usuario.getCategoriaDiabete());
+    public UsuarioDTO atualizar(Long usuarioId, UsuarioDTO usuario) {
+      Usuario usuarioBuscado = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RecursoNotFoundException("Usuário não encontrado com ID: " +usuarioId));
+      usuarioBuscado.setNome(usuario.nome());
+      usuarioBuscado.setSexo(usuario.sexo());
+      usuarioBuscado.setIdade(usuario.idade());
+      usuarioBuscado.setCategoriaDiabete(usuario.categoriaDiabete());
       return toDTO(usuarioRepository.save(usuarioBuscado));
     }
 
@@ -80,4 +77,13 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.getCategoriaDiabete()
         );
     }
+
+  private Usuario toEntity(UsuarioDTO dto) {
+    return new Usuario(
+        dto.nome(),
+        dto.sexo(),
+        dto.idade(),
+        dto.categoriaDiabete()
+    );
+  }
 }

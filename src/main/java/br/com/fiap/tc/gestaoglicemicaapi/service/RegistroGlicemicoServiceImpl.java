@@ -3,8 +3,7 @@ package br.com.fiap.tc.gestaoglicemicaapi.service;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.RegistroGlicemicoMinDTO;
 import br.com.fiap.tc.gestaoglicemicaapi.dto.UsuarioDTO;
-import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.RegistroGlicemicoNotFoundException;
-import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.UsuarioNotFoundException;
+import br.com.fiap.tc.gestaoglicemicaapi.exceptionhandler.exception.RecursoNotFoundException;
 import br.com.fiap.tc.gestaoglicemicaapi.model.RegistroGlicemico;
 import br.com.fiap.tc.gestaoglicemicaapi.model.Usuario;
 import br.com.fiap.tc.gestaoglicemicaapi.repository.RegistroGlicemicoRepository;
@@ -38,14 +37,14 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     @Transactional(readOnly = true)
     @Override
     public RegistroGlicemicoDTO buscarPeloId(Long idRegistroGlicemico) {
-        RegistroGlicemico rg = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException(idRegistroGlicemico));
+        RegistroGlicemico rg = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RecursoNotFoundException("Registro Glicemico de ID: " + idRegistroGlicemico + " não encontrado"));
         return toDTO(rg);
     }
 
     @Transactional
     @Override
     public RegistroGlicemicoDTO criar(RegistroGlicemicoMinDTO rgDTO) {
-        Usuario usuario  = uRepository.findById(rgDTO.usuarioId()).orElseThrow(() -> new UsuarioNotFoundException(rgDTO.usuarioId()));;
+        Usuario usuario  = uRepository.findById(rgDTO.usuarioId()).orElseThrow(() -> new RecursoNotFoundException("Usuário não encontrado com ID: " + rgDTO.usuarioId()));;
 
         RegistroGlicemico rg = new RegistroGlicemico(
             rgDTO.valorGlicemia(),
@@ -64,7 +63,7 @@ public class RegistroGlicemicoServiceImpl implements RegistroGlicemicoService {
     @Transactional
     @Override
     public RegistroGlicemicoDTO atualizar(Long idRegistroGlicemico, RegistroGlicemicoMinDTO rg) {
-        RegistroGlicemico rgSalvo = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RegistroGlicemicoNotFoundException(idRegistroGlicemico));
+        RegistroGlicemico rgSalvo = rgRepository.findById(idRegistroGlicemico).orElseThrow(() -> new RecursoNotFoundException("Registro Glicemico de ID: " + idRegistroGlicemico + " não encontrado"));
 
         rgSalvo.setData(rg.data());
         rgSalvo.setTitulo(rg.titulo());

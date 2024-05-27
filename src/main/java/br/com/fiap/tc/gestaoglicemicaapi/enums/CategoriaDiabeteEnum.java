@@ -7,12 +7,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CategoriaDiabeteEnum {
-
-    PRE_DIABETES(1, "Pre Diabetes"),
-    DIABETE_I(2, "Diabete I"),
-    DIABETE_II(3, "Diabete II"),
-    DIABETE_GESTACIONAL(4, "Diabete Gestacional");
-
-    private final long id;
-    private final String nome;
+    PRE_DIABETES,
+    DIABETE_I,
+    DIABETE_II,
+    DIABETE_GESTACIONAL
 }
