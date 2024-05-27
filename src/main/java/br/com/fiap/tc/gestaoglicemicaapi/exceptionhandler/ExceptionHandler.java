@@ -53,7 +53,7 @@ public class ExceptionHandler {
         ErroCustomizado erro = new ErroCustomizado(
             Instant.now(),
             status.value(),
-            "Valores aceitaveis para a categoria de diabete: [DIABETE_I, DIABETE_GESTACIONAL, DIABETE_II, PRE_DIABETES]",
+            e.getMessage(),
             request.getRequestURI()
         );
         return ResponseEntity.status(status).body(erro);
